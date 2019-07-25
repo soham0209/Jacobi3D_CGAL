@@ -51,11 +51,25 @@ int main(int argc, char* argv[])
 		cout << "Argument missing" << endl;
 		exit(1);
 	}
+	bool resamp = false;
 	string data = argv[1];
+	string resampled;
+	if(argc > 2){
+		resampled = argv[2];
+		if(resampled == "-r")
+			resamp = true;
+		
+	}
+	string vert_file = data + "/" + data + "_vert.txt";
+	string pers_file = data + "/" + data + ".txt";
+	if(resamp){
+		vert_file = data + "/" + data + "_resampled_vert.txt";
+		pers_file = data + "/" + data + "_resampled.txt";
 
+	}
 
-	Jacobi3d J(data + "/" + data + "_vert.txt");
-	J.readperseus(data + "/" + data + ".txt");
+	Jacobi3d J(vert_file);
+	J.readperseus(pers_file);
 	//J.debug();
 	J.getJacobiEdges();
 	J.WriteToFile(data + "/" + data + "_Jacobi.txt");

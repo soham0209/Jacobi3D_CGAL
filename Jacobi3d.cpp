@@ -1,5 +1,4 @@
 #include "Jacobi3d.h"
-#include <Eigen/Dense>
 #include <chrono>
 using namespace std;
 Jacobi3d::Jacobi3d(string filename) {
@@ -25,7 +24,6 @@ Jacobi3d::Jacobi3d(string filename) {
 	triangulate(filename);
 }
 void Jacobi3d::triangulate(string filename) {
-
 	string tri_file = filename.substr(0, filename.find("_vert")) + "_triangulated.raw";
 	string scalar_file = filename.substr(0, filename.find("_vert")) + "_field.raw";
 	ifstream tri(tri_file, std::ios::in);
@@ -60,7 +58,7 @@ void Jacobi3d::triangulate(string filename) {
 			cerr << "Input Triangulation not read" << endl;
 		}
 		else {
-			list<std::pair<Point, unsigned>> L;
+			list<std::pair<Point, unsigned> > L;
 			unsigned int i = 0;
 			double a, b, c;
 			while (inFile >> a >> b >> c) {

@@ -3,6 +3,7 @@
 #include <CGAL/Delaunay_triangulation_3.h>
 #include <CGAL/Delaunay_triangulation_cell_base_3.h>
 #include <CGAL/Triangulation_vertex_base_with_info_3.h>
+#include <Eigen/Dense>
 #include <iostream>
 #include <fstream>
 #include <list>
@@ -19,7 +20,6 @@ typedef CGAL::Delaunay_triangulation_3<K, Tds, CGAL::Fast_location> Triangulatio
 typedef Triangulation::Point	Point;
 typedef Triangulation::Finite_cells_iterator Finite_cells_iterator;
 typedef Triangulation::Finite_facets_iterator Finite_facets_iterator;
-typedef K::Vector_3 Vector_3;
 #include <string>
 using namespace std;
 class Jacobi3d {
@@ -42,5 +42,4 @@ public:
 	vector<vector<unsigned> > j_faces;
 	bool read_from_saved = false;
 	
-
 };
