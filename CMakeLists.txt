@@ -1,0 +1,10 @@
+
+cmake_minimum_required(VERSION 3.1)
+set (CMAKE_CXX_STANDARD 11)
+find_package(CGAL)
+find_package(CGAL COMPONENTS ImageIO)
+include( ${CGAL_USE_FILE} )
+add_executable(Jacobi Jacobi3d.cpp Jacobi3d.h main.cpp)
+add_executable(Walk CGAL_Walk.cpp)
+add_executable(Refine refine.cpp)
+target_link_libraries(Refine ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${VTK_LIBRARIES})

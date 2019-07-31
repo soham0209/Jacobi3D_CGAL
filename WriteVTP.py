@@ -53,18 +53,21 @@ def writeOFF(Vert, JacobiFaces, filename):
 
     
 if __name__ == '__main__':
+    resampled = False
     if len(sys.argv) < 2:
         print('Usage: python <dataName>')
     datafile = sys.argv[1]
     delta = ''
     if len(sys.argv) > 2:
-        delta = str(float(sys.argv[2]))
+        resam = sys.argv[2]
+        if resam == '-r':
+            resampled = True
     # Simplex_tree, Vertices, num_face = readOFF(datafile+'/'+datafile+'_triangulated.off')
     # readperseus(datafile+'/'+datafile+'.txt')
     # j_faces = computejacobi(Simplex_tree)
     # print(len(j_faces))
     # writeVtk(j_faces, datafile+'/'+datafile+'_jacobi')
-    resampled = False
+
     vertfile = datafile+'/'+datafile + '_vert.txt'
     if resampled:
         vertfile = datafile + '/' + datafile + '_resampled_vert.txt'
@@ -84,8 +87,8 @@ if __name__ == '__main__':
         writeVtk(vert, jp_faces, datafile+'/'+datafile+'_pruned_jacobi')
     if os.path.exists(p_j_facefile):
         p_faces = np.loadtxt(p_j_facefile)
-        writeOFF(vert, p_faces, datafile+'/'+datafile+'_pruned_eroded_jacobi_' + delta)
-        writeVtk(vert, p_faces, datafile+'/'+datafile+'_pruned_eroded_jacobi_' + delta)
+        writeOFF(vert, p_faces, datafile+'/'+datafile+'_pruned_eroded_jacobi_')
+        writeVtk(vert, p_faces, datafile+'/'+datafile+'_pruned_eroded_jacobi_')
     if os.path.exists(p_w_facefile):
         j_faces = np.loadtxt(p_w_facefile)
         writeVtk(vert, j_faces, datafile+'/'+datafile+'_pruned_walked')

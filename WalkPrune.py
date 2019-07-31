@@ -67,24 +67,30 @@ def read_filtration(filein):
     for i in range(dim):
         each_dim = each_dim * int(f.readline().strip('\n'))
     for ii in range(each_dim):
-        filtration[ii] = float(f.readline().strip('\n'))
+        filtration[ii] = abs(float(f.readline().strip('\n')))
     print('Read ', len(filtration), ' Values')
 
 
 def get_filtration(f: list):
-    val = max([filtration[vind] for vind in f])
+    val = min([filtration[vind] for vind in f])
     return val
 
 
 if __name__ == '__main__':
     data = sys.argv[1]
+    pers_file = data + '/' + data + '.txt'
     delta = 10
-    if len(sys.argv) > 2:
+    argc = len(sys.argv)
+    if argc > 2:
         delta = float(sys.argv[2])
     else:
         print('Setting delta to default 10')
+    if argc == 4:
+        resample_flag = sys.argv[3]
+        if resample_flag == '-r':
+            pers_file = data + '/' + data + '_resampled.txt'
     st, numf = readOFF(data + '/' + data + '_pruned_walked.off')
-    read_filtration(data + '/' + data + '.txt')
+    read_filtration(pers_file)
     faces = list()
     for f in st.get_skeleton(2):
         if len(f[0]) != 3:

@@ -14,9 +14,9 @@ def createfin(points,centre,r,r_sqr,dirctn=1):
     #normal = np.array([1, 1, 1])
     d = - normal.dot(np.array(centre))
     newpts = list()
-    (xstart, xstop) = (int(centre[0]),int(centre[0] + r + 3))
-    (ystart, ystop) = (int(centre[1]), int(centre[1] + r + 3))
-    (zstart, zstop) = (int(centre[2]), int(centre[2] + r + 3))
+    (xstart, xstop) = (int(centre[0]),int(centre[0] + r + 10))
+    (ystart, ystop) = (int(centre[1]), int(centre[1] + r + 10))
+    (zstart, zstop) = (int(centre[2]), int(centre[2] + r + 10))
     for z in range(zstart,zstop):
         for y in range(ystart,ystop):
             for x in range(xstart,xstop):
@@ -150,6 +150,7 @@ def createcircle(slice , r):
         mean.add((int(x), int(y)))
     return mean
 
+
 def writedata2D(nx,ny,pts,vertexfile,databinfile):
     values = list()
     # artificial_max = [(45, 43), (50, 32), (48, 18), (37, 12)]
@@ -167,6 +168,7 @@ def writedata2D(nx,ny,pts,vertexfile,databinfile):
             databinfile.write(s + '\n')
             vertexfile.write(str(x) + ' ' + str(y)  + ' ' + str(0)+'\n')
     return values
+
 
 def applyRot(pts,X, Y, Z,centre):
     rotated_pts = list()
@@ -190,6 +192,7 @@ def applyRot(pts,X, Y, Z,centre):
         newpt = np.array(newpt.transpose()).reshape(4)
         rotated_pts.append((newpt[0],newpt[1],newpt[2]))
     return rotated_pts
+
 
 def createMax(CornerPoint:list):
     corners = list()
@@ -238,7 +241,7 @@ def intersectLine(cen, x1, y1, x, y):
 
 
 cwd = os.getcwd()
-a = 30
+a = 40
 nx = a
 ny = a
 nz = a
@@ -248,7 +251,7 @@ dim2 = [nx, ny]
 centre2 = [nx/2, ny/2]
 
 #dataName='bone'
-dataName = 'halfsphere_' + str(nx) + '_' + str(ny) + '_' + str(nz)
+dataName = 'inside_' + str(nx) + '_' + str(ny) + '_' + str(nz)
 # dataName = 'seeded_circle_'+str(nx)+'_'+str(ny)+'_only_fin'
 dirname = cwd + '/' + dataName
 
@@ -265,13 +268,13 @@ radius_sqr = 16
 r = math.ceil(math.sqrt(radius_sqr))
 eps = 1e-06
 #
-pts = intersectSphere(nx,ny,nz,centre,radius_sqr)
+#pts = intersectSphere(nx,ny,nz,centre,radius_sqr)
 finpts = [(18, 15, 15), (17, 17, 16)]
 # max_pos = [(20, 31, 42), (28, 48, 40), (15, 12, 41), (18, 10, 23)]
 # pts = max_pos
-#pts = list()
-#fin = createfin(finpts,centre,r,radius_sqr,dirctn=1)
-#pts = pts + fin # + applyRot(fin,math.radians(100),math.radians(5),math.radians(5),centre)
+pts = list()
+fin = createfin(finpts,centre,r,radius_sqr,dirctn=1)
+pts = pts + fin # + applyRot(fin,math.radians(100),math.radians(5),math.radians(5),centre)
 
 # createfin(pts,centre,r,dirctn=-1)
 #pts = np.array(list(createSphere(16,16,r,centre)))
